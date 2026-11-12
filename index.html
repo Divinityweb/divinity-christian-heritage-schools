@@ -187,23 +187,25 @@ async function showAdmin(user) {
 }
 
   
+
 async function showAdmin(user) {
   const {data: profile, error} = await supabase
     .from('profiles')
-    .select('admin_user_id, full_name, role, profile_school_id')
-    .eq('admin_user_id', user.id)
+    .select('id, school_id, full_name, role, active')
+    .eq('id', user.id)
     .maybeSingle();
 
   if (
     error ||
     !profile ||
     profile.role !== 'admin' ||
-    profile.profile_school_id !==
+    profile.active !== true ||
+    profile.school_id !==
     '270f7d65-bce7-455c-858d-ba1a068d846f'
   ) {
     await supabase.auth.signOut();
     message.textContent =
-      'Access denied. Authorized administrator required.';
+      'Access denied. Administrator verification failed.';
     return;
   }
 
@@ -211,53 +213,9 @@ async function showAdmin(user) {
   document.getElementById('portal').style.display = 'block';
 
   document.getElementById('adminInfo').textContent =
-    'Welcome, ' + (profile.full_name || user.email) +
+    'Welcome, ' + profile.full_name +
     '. Administrator access verified.';
 
   window.scrollTo(0, 0);
 }
 
-
-  if(error || !profile || profile.role !== 'admin' ||
-     profile.school_id !== '270f7d65-bce7-455c-858d-ba1a068d846f') {
-    await supabase.auth.signOut();
-    message.textContent = 'Access denied. Authorized school administrator account required.';
-    return;
-  }
-
-  document.getElementById('publicSite').style.display='none';
-  document.getElementById('portal').style.display='block';
-  document.getElementById('adminInfo').textContent =
-    'Welcome, ' + (profile.full_name || user.email) +
-    '. Your administrator account is authenticated.';
-  window.scrollTo(0,0);
-}
-
-form.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  message.textContent='Signing in securely...';
-
-  const {data,error} = await supabase.auth.signInWithPassword({
-    email:document.getElementById('email').value.trim(),
-    password:document.getElementById('password').value
-  });
-
-  if(error){
-    message.textContent='Login failed: '+error.message;
-    return;
-  }
-  await showAdmin(data.user);
-});
-
-document.getElementById('logoutBtn').addEventListener('click',async ()=>{
-  await supabase.auth.signOut();
-  document.getElementById('portal').style.display='none';
-  document.getElementById('publicSite').style.display='block';
-  form.reset();
-  window.scrollTo(0,0);
-});
-
-checkSession();
-</script>
-</body>
-</html>
