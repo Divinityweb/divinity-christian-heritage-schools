@@ -155,12 +155,68 @@ async function checkSession() {
   if(data.session) await showAdmin(data.session.user);
 }
 
+
 async function showAdmin(user) {
   const {data: profile, error} = await supabase
     .from('profiles')
-    .select('role, school_id, full_name')
-    .eq('id', user.id)
+    .select('admin_user_id, full_name, role, profile_school_id')
+    .eq('admin_user_id', user.id)
     .maybeSingle();
+
+  if (
+    error ||
+    !profile ||
+    profile.role !== 'admin' ||
+    profile.profile_school_id !==
+    '270f7d65-bce7-455c-858d-ba1a068d846f'
+  ) {
+    await supabase.auth.signOut();
+    message.textContent =
+      'Access denied. Authorized administrator required.';
+    return;
+  }
+
+  document.getElementById('publicSite').style.display = 'none';
+  document.getElementById('portal').style.display = 'block';
+
+  document.getElementById('adminInfo').textContent =
+    'Welcome, ' + (profile.full_name || user.email) +
+    '. Administrator access verified.';
+
+  window.scrollTo(0, 0);
+}
+
+  
+async function showAdmin(user) {
+  const {data: profile, error} = await supabase
+    .from('profiles')
+    .select('admin_user_id, full_name, role, profile_school_id')
+    .eq('admin_user_id', user.id)
+    .maybeSingle();
+
+  if (
+    error ||
+    !profile ||
+    profile.role !== 'admin' ||
+    profile.profile_school_id !==
+    '270f7d65-bce7-455c-858d-ba1a068d846f'
+  ) {
+    await supabase.auth.signOut();
+    message.textContent =
+      'Access denied. Authorized administrator required.';
+    return;
+  }
+
+  document.getElementById('publicSite').style.display = 'none';
+  document.getElementById('portal').style.display = 'block';
+
+  document.getElementById('adminInfo').textContent =
+    'Welcome, ' + (profile.full_name || user.email) +
+    '. Administrator access verified.';
+
+  window.scrollTo(0, 0);
+}
+
 
   if(error || !profile || profile.role !== 'admin' ||
      profile.school_id !== '270f7d65-bce7-455c-858d-ba1a068d846f') {
