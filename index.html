@@ -1,1 +1,208 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divinity Christian Heritage Schools</title>
+<meta name="description" content="Divinity Christian Heritage Schools - Quality Christian education in Bvumbwe, Thyolo, Malawi.">
+<style>
+:root{--navy:#102b50;--gold:#d9a52c;--white:#fff;--light:#f3f6fa}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:#24344b;background:white}
+header{background:var(--navy);color:white;padding:16px 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;font-weight:bold;font-size:17px}
+.crest{background:var(--gold);color:var(--navy);padding:12px;border-radius:50%;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:8px;font-size:14px}
+.hero{padding:90px 7%;background:linear-gradient(120deg,#102b50,#24517a);color:white;text-align:center}
+.hero h1{font-size:clamp(32px,6vw,55px);margin:10px}
+.hero p{font-size:18px;line-height:1.7}
+.btn{display:inline-block;padding:14px 24px;background:var(--gold);color:#102b50;border:0;border-radius:7px;font-weight:bold;text-decoration:none;cursor:pointer;margin:8px}
+.btn.secondary{background:white}
+section{padding:55px 7%}
+h2{text-align:center;color:var(--navy);font-size:30px}
+.intro{text-align:center;max-width:750px;margin:auto;line-height:1.8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;margin-top:30px}
+.card{padding:25px;background:var(--light);border-radius:12px;border-bottom:4px solid var(--gold)}
+.card h3{color:var(--navy)}
+.admissions{background:#102b50;color:white;text-align:center}
+.admissions h2{color:white}
+.contact{background:var(--light)}
+form{max-width:420px;margin:20px auto;background:white;padding:25px;border-radius:12px}
+input{width:100%;padding:13px;margin:9px 0;border:1px solid #ccd4df;border-radius:6px}
+#portal{display:none;background:#f3f6fa;min-height:70vh}
+#portalContent{max-width:900px;margin:auto;padding:30px 7%}
+.status{padding:12px;background:#e8f3e9;border-radius:6px;word-break:break-word}
+footer{background:#091b32;color:white;text-align:center;padding:25px}
+small{color:#d8dce3}
+@media(max-width:600px){header{justify-content:center}nav{text-align:center;margin-top:12px}.hero{padding:65px 5%}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="brand"><span class="crest">DCHS</span>
+<span>DIVINITY CHRISTIAN<br>HERITAGE SCHOOLS</span></div>
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#classes">Classes</a>
+<a href="#contact">Contact</a>
+<a href="#management">Admin</a>
+</nav>
+</header>
+
+<main id="publicSite">
+<div class="hero" id="home">
+<p>WELCOME TO DIVINITY CHRISTIAN HERITAGE SCHOOLS</p>
+<h1>Building Knowledge.<br>Shaping Character.<br>Inspiring Excellence.</h1>
+<p>Quality Christian education for a brighter future.</p>
+<a class="btn" href="#contact">Enquire About Admission</a>
+<a class="btn secondary" href="#classes">Explore Our Classes</a>
+</div>
+
+<section id="about">
+<h2>Welcome to Our School</h2>
+<p class="intro">
+Divinity Christian Heritage Schools is committed to providing quality education
+in a Christian environment. We nurture young minds through academic excellence,
+discipline, good character and Christian values.
+</p>
+<div class="grid">
+<div class="card"><h3>Our Mission</h3><p>To provide quality Christian education that develops knowledgeable, disciplined and responsible learners.</p></div>
+<div class="card"><h3>Our Vision</h3><p>To raise a generation of excellent, God-fearing and responsible future leaders.</p></div>
+<div class="card"><h3>Our Values</h3><p>Faith, integrity, discipline, excellence, love and responsibility.</p></div>
+</div>
+</section>
+
+<section id="classes">
+<h2>Our Classes</h2>
+<p class="intro">We provide a learning journey from early childhood through primary education.</p>
+<div class="grid">
+<div class="card"><h3>Daycare</h3><p>A caring and safe environment for our youngest children.</p></div>
+<div class="card"><h3>Nursery</h3><p>Early learning, creativity and social development.</p></div>
+<div class="card"><h3>Reception</h3><p>Preparing young learners for primary education.</p></div>
+<div class="card"><h3>Primary</h3><p>Strong foundations in academic and personal development.</p></div>
+</div>
+</section>
+
+<section class="admissions">
+<h2>Admissions Are Open</h2>
+<p>Give your child an opportunity to learn, grow and excel.</p>
+<a class="btn" href="https://wa.me/265884099305">Contact Us on WhatsApp</a>
+</section>
+
+<section id="contact" class="contact">
+<h2>Contact Our School</h2>
+<div class="intro">
+<p><b>Location:</b> Bvumbwe Trading Centre, 300m Off M2–Muloza Road, Along Mtsika Wanjala, Thyolo, Malawi.</p>
+<p><b>Phone:</b> +265 884 099 305</p>
+<p><b>Email:</b> mpoyag365@gmail.com</p>
+<a class="btn" href="mailto:mpoyag365@gmail.com">Email Us</a>
+</div>
+</section>
+
+<section id="management">
+<h2>School Management Portal</h2>
+<p class="intro">Authorized school administrators can securely access the school management system below.</p>
+<form id="loginForm">
+<h3 style="text-align:center;color:#102b50">Administrator Login</h3>
+<input id="email" type="email" placeholder="Administrator email" required>
+<input id="password" type="password" placeholder="Password" required>
+<button class="btn" type="submit" style="width:100%">Secure Login</button>
+<p id="loginMessage" role="status"></p>
+</form>
+</section>
+</main>
+
+<section id="portal">
+<div id="portalContent">
+<h2>School Management Dashboard</h2>
+<div id="adminInfo" class="status"></div>
+<h3>Management Modules</h3>
+<div class="grid">
+<div class="card"><h3>Students</h3><p>Student registration and records.</p></div>
+<div class="card"><h3>Attendance</h3><p>Daily attendance management.</p></div>
+<div class="card"><h3>Fees & Payments</h3><p>School fees and payment records.</p></div>
+<div class="card"><h3>Accounts</h3><p>Income, expenses and financial records.</p></div>
+<div class="card"><h3>Academic Years</h3><p>Academic year administration.</p></div>
+<div class="card"><h3>Reports</h3><p>School management reports.</p></div>
+</div>
+<button class="btn" id="logoutBtn">Log Out</button>
+</div>
+</section>
+
+<footer>
+<p><b>DIVINITY CHRISTIAN HERITAGE SCHOOLS</b></p>
+<p>Building Knowledge. Shaping Character. Inspiring Excellence.</p>
+<small>© 2026 Divinity Christian Heritage Schools. All rights reserved.</small>
+</footer>
+
+<script type="module">
+import { createClient } from
+'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL = 'https://ngqabhuiqljbneelzmaj.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_psi9x9k9mTZ-_-051PwpQw_vwmIbhQQ';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const form = document.getElementById('loginForm');
+const message = document.getElementById('loginMessage');
+
+async function checkSession() {
+  const {data} = await supabase.auth.getSession();
+  if(data.session) await showAdmin(data.session.user);
+}
+
+async function showAdmin(user) {
+  const {data: profile, error} = await supabase
+    .from('profiles')
+    .select('role, school_id, full_name')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if(error || !profile || profile.role !== 'admin' ||
+     profile.school_id !== '270f7d65-bce7-455c-858d-ba1a068d846f') {
+    await supabase.auth.signOut();
+    message.textContent = 'Access denied. Authorized school administrator account required.';
+    return;
+  }
+
+  document.getElementById('publicSite').style.display='none';
+  document.getElementById('portal').style.display='block';
+  document.getElementById('adminInfo').textContent =
+    'Welcome, ' + (profile.full_name || user.email) +
+    '. Your administrator account is authenticated.';
+  window.scrollTo(0,0);
+}
+
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  message.textContent='Signing in securely...';
+
+  const {data,error} = await supabase.auth.signInWithPassword({
+    email:document.getElementById('email').value.trim(),
+    password:document.getElementById('password').value
+  });
+
+  if(error){
+    message.textContent='Login failed: '+error.message;
+    return;
+  }
+  await showAdmin(data.user);
+});
+
+document.getElementById('logoutBtn').addEventListener('click',async ()=>{
+  await supabase.auth.signOut();
+  document.getElementById('portal').style.display='none';
+  document.getElementById('publicSite').style.display='block';
+  form.reset();
+  window.scrollTo(0,0);
+});
+
+checkSession();
+</script>
+</body>
+</html>
+
