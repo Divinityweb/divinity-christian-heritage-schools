@@ -198,3 +198,51 @@ async function showAdmin(user) {
 
   window.scrollTo(0, 0);
 }
+
+  
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const button = form.querySelector('button[type="submit"]');
+
+  button.disabled = true;
+  button.textContent = 'Signing in...';
+  message.textContent = 'Authenticating...';
+
+  try {
+    const { data, error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) throw error;
+
+    await showAdmin(data.user);
+
+  } catch (error) {
+    message.textContent = 'LOGIN ERROR: ' + error.message;
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Secure Login';
+  }
+});
+
+document.getElementById('logoutBtn')
+  .addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    document.getElementById('portal').style.display = 'none';
+    document.getElementById('publicSite').style.display = 'block';
+    form.reset();
+    message.textContent = 'You have logged out.';
+    window.scrollTo(0, 0);
+  });
+
+checkSession();
+
+</script>
+</body>
+</html>
+
