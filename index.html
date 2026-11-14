@@ -134,6 +134,45 @@ style="text-align:left;width:100%;cursor:pointer">
 <div class="card"><h3>Academic Years</h3><p>Academic year administration.</p></div>
 <div class="card"><h3>Reports</h3><p>School management reports.</p></div>
 </div>
+  
+<div id="studentsPanel" style="display:none;background:white;padding:20px;border-radius:12px;margin-top:25px">
+  <h2>Student Management</h2>
+  <p>Register and manage school student records.</p>
+
+  <button type="button" class="btn" id="backToDashboard">
+    ← Back to Dashboard
+  </button>
+
+  <h3>Register New Student</h3>
+
+  <form id="studentForm">
+    <input id="admissionNo" type="text"
+      placeholder="Admission Number" required>
+
+    <input id="studentName" type="text"
+      placeholder="Student Full Name" required>
+
+    <input id="studentDob" type="date">
+
+    <input id="guardianName" type="text"
+      placeholder="Parent / Guardian Name">
+
+    <input id="guardianPhone" type="tel"
+      placeholder="Parent / Guardian Phone">
+
+    <button class="btn" type="submit">
+      Save Student
+    </button>
+
+    <p id="studentMessage" role="status"></p>
+  </form>
+
+  <h3>Registered Students</h3>
+  <div id="studentsList">
+    Loading student records...
+  </div>
+</div>
+
 <button class="btn" id="logoutBtn">Log Out</button>
 </div>
 </section>
