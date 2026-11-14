@@ -285,7 +285,24 @@ document.getElementById('logoutBtn')
     window.scrollTo(0, 0);
   });
 
-checkSession();
+
+// Open Students Management
+document.getElementById('openStudentsBtn')
+  .addEventListener('click', () => {
+    document.getElementById('studentsPanel').style.display = 'block';
+    document.getElementById('studentsPanel').scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+
+// Return to Dashboard
+document.getElementById('backToDashboard')
+  .addEventListener('click', () => {
+    document.getElementById('studentsPanel').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  checkSession();
 
 </script>
 </body>
