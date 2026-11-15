@@ -408,23 +408,148 @@ async function loadStudents() {
             </table>
         `;
 
-        console.log('Students loaded successfully:', data.length);
 
-    } catch (error) {
+// =====================================
+// LOGOUT
+// =====================================
+document.getElementById('logoutBtn')
+  ?.addEventListener('click', async () => {
 
-        console.error('Error loading students:', error);
+    const { error } = await supabase.auth.signOut();
 
-        studentsList.innerHTML = `
-            <p style="color:red;">
-                Unable to load student records.
-                ${error.message}
-            </p>
-        `;
+    if (error) {
+      console.error('Logout error:', error);
+      message.textContent = error.message;
+      return;
     }
+
+    document.getElementById('portal').style.display = 'none';
+    document.getElementById('publicSite').style.display = 'block';
+
+    form.reset();
+    message.textContent = 'You have logged out.';
+
+    window.scrollTo(0, 0);
+  });
+
+
+// =====================================
+// OPEN STUDENTS MANAGEMENT
+// =====================================
+document.getElementById('openStudentsBtn')
+  ?.addEventListener('click', async () => {
+
+    const studentsPanel =
+      document.getElementById('studentsPanel');
+
+    studentsPanel.style.display = 'block';
+
+    studentsPanel.scrollIntoView({
+      behavior: 'smooth'
+    });
+
+    await loadStudents();
+  });
+
+
+// =====================================
+// RETURN TO DASHBOARD
+// =====================================
+document.getElementById('backToDashboard')
+  ?.addEventListener('click', () => {
+
+    document.getElementById('studentsPanel').style.display = 'none';
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+
+// =====================================
+// LOAD REGISTERED STUDENTS
+// =====================================
+async function loadStudents() {
+
+  const studentsList =
+    document.getElementById('studentsList');
+
+  if (!studentsList) {
+    console.error('Students list element not found');
+    return;
+  }
+
+  studentsList.textContent = 'Loading student records...';
+
+  try {
+
+    const { data, error } = await supabase
+      .from('students')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      studentsList.textContent =
+        'No students registered yet.';
+      return;
+    }
+
+    const table = document.createElement('table');
+
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th>Admission No.</th>
+          <th>Student Name</th>
+          <th>Gender</th>
+          <th>Class ID</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    `;
+
+    const tbody = table.querySelector('tbody');
+
+    data.forEach(student => {
+
+      const tr = document.createElement('tr');
+
+      [
+        student.admission_no,
+        student.full_name,
+        student.gender,
+        student.class_id
+      ].forEach(value => {
+
+        const td = document.createElement('td');
+        td.textContent = value ?? '';
+        tr.appendChild(td);
+
+      });
+
+      tbody.appendChild(tr);
+    });
+
+    studentsList.replaceChildren(table);
+
+    console.log('Students loaded:', data.length);
+
+  } catch (error) {
+
+    console.error('Error loading students:', error);
+
+    studentsList.textContent =
+      'Unable to load student records: ' + error.message;
+  }
 }
 
 
+// =====================================
 // CHECK LOGIN SESSION
+// =====================================
 checkSession();
 
 </script>
