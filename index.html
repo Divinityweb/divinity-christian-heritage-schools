@@ -304,27 +304,83 @@ document.getElementById('backToDashboard')
 
   checkSession();
 
-</script>
-  async function loadStudents() {
-    const studentsList = document.getElementById("studentsList");
+
+<script>
+
+// LOGOUT
+document.getElementById('logoutBtn')
+  .addEventListener('click', async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    document.getElementById('portal').style.display = 'none';
+    document.getElementById('publicSite').style.display = 'block';
+
+    form.reset();
+    message.textContent = 'You have logged out.';
+    window.scrollTo(0, 0);
+  });
+
+
+// OPEN STUDENTS MANAGEMENT
+document.getElementById('openStudentsBtn')
+  .addEventListener('click', async () => {
+
+    document.getElementById('studentsPanel').style.display = 'block';
+
+    document.getElementById('studentsPanel').scrollIntoView({
+      behavior: 'smooth'
+    });
+
+    // Load student records whenever the panel opens
+    await loadStudents();
+  });
+
+
+// RETURN TO DASHBOARD
+document.getElementById('backToDashboard')
+  .addEventListener('click', () => {
+
+    document.getElementById('studentsPanel').style.display = 'none';
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+
+// LOAD REGISTERED STUDENTS
+async function loadStudents() {
+
+    const studentsList = document.getElementById('studentsList');
 
     if (!studentsList) {
-        console.error("Students list element not found");
+        console.error('Students list element not found');
         return;
     }
 
-    studentsList.innerHTML = "Loading student records...";
+    studentsList.innerHTML = 'Loading student records...';
 
     try {
-        const { data, error } = await supabase
-            .from("students")
-            .select("*")
-            .order("created_at", { ascending: false });
 
-        if (error) throw error;
+        const { data, error } = await supabase
+            .from('students')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            throw error;
+        }
 
         if (!data || data.length === 0) {
-            studentsList.innerHTML = "No students registered yet.";
+
+            studentsList.innerHTML = 'No students registered yet.';
+
             return;
         }
 
@@ -335,31 +391,42 @@ document.getElementById('backToDashboard')
                         <th>Admission No.</th>
                         <th>Student Name</th>
                         <th>Gender</th>
-                        <th>Class</th>
+                        <th>Class ID</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     ${data.map(student => `
                         <tr>
-                            <td>${student.admission_no || ""}</td>
-                            <td>${student.full_name || ""}</td>
-                            <td>${student.gender || ""}</td>
-                            <td>${student.class_id || ""}</td>
+                            <td>${student.admission_no || ''}</td>
+                            <td>${student.full_name || ''}</td>
+                            <td>${student.gender || ''}</td>
+                            <td>${student.class_id || ''}</td>
                         </tr>
-                    `).join("")}
+                    `).join('')}
                 </tbody>
             </table>
         `;
 
+        console.log('Students loaded successfully:', data.length);
+
     } catch (error) {
-        console.error("Error loading students:", error);
-        studentsList.innerHTML =
-            "Unable to load student records. Please check your connection and permissions.";
+
+        console.error('Error loading students:', error);
+
+        studentsList.innerHTML = `
+            <p style="color:red;">
+                Unable to load student records.
+                ${error.message}
+            </p>
+        `;
     }
 }
+
+
+// CHECK LOGIN SESSION
+checkSession();
+
+</script>
 </body>
 </html>
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadStudents();
-});
