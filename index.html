@@ -305,5 +305,57 @@ document.getElementById('backToDashboard')
   checkSession();
 
 </script>
+  async function loadStudents() {
+    const studentsList = document.getElementById("studentsList");
+
+    if (!studentsList) {
+        console.error("Students list element not found");
+        return;
+    }
+
+    studentsList.innerHTML = "Loading student records...";
+
+    try {
+        const { data, error } = await supabase
+            .from("students")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            studentsList.innerHTML = "No students registered yet.";
+            return;
+        }
+
+        studentsList.innerHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Admission No.</th>
+                        <th>Student Name</th>
+                        <th>Gender</th>
+                        <th>Class</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(student => `
+                        <tr>
+                            <td>${student.admission_no || ""}</td>
+                            <td>${student.full_name || ""}</td>
+                            <td>${student.gender || ""}</td>
+                            <td>${student.class_id || ""}</td>
+                        </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+        `;
+
+    } catch (error) {
+        console.error("Error loading students:", error);
+        studentsList.innerHTML =
+            "Unable to load student records. Please check your connection and permissions.";
+    }
+}
 </body>
 </html>
